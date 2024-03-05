@@ -1,2 +1,4 @@
 jwt:
   secret: my_secret_key
+  expiration:
+    hours: 1
