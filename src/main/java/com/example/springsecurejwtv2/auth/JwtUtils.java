@@ -15,8 +15,8 @@ public class JwtUtils {
 
     private final SecretKey SECRET_KEY;
 
-    @Value("${jwt.expiration.hours}")
-    private int expirationTimeInHours;
+    @Value("${jwt.expiration.seconds}")
+    private int expirationTimeInSeconds;
 
     public JwtUtils(SecretKey secretKey) {
         this.SECRET_KEY = secretKey;
@@ -32,7 +32,7 @@ public class JwtUtils {
         return Jwts.builder()
                 .issuer("kelvinqiu.tech")
                 .subject(user.getUsername())
-                .expiration(new Date(new Date().getTime() + TimeUnit.HOURS.toMillis(expirationTimeInHours)))
+                .expiration(new Date(new Date().getTime() + TimeUnit.SECONDS.toMillis(expirationTimeInSeconds)))
                 .issuedAt(new Date())
                 .signWith(SECRET_KEY)
                 .compact();
