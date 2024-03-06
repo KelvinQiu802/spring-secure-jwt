@@ -1,4 +1,4 @@
-package com.example.springsecurejwtv2.domain;
+package com.example.springsecurejwtv2.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
