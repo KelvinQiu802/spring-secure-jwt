@@ -20,7 +20,7 @@ public class SecretKeyConfig {
     public SecretKey secretKey() throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(secretString.getBytes(StandardCharsets.UTF_8));
-        return new SecretKeySpec(hash, "AES");
+        return new SecretKeySpec(hash, "HmacSHA256");
     }
 
 }
