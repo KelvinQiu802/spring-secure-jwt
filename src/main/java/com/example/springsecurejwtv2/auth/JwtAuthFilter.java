@@ -1,28 +1,31 @@
 package com.example.springsecurejwtv2.auth;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
+@Log
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
     private final JwtUtils jwtUtils;
+    private final HandlerExceptionResolver handlerExceptionResolver;
 
     private static final String TOKEN_PREFIX = "Bearer ";
 
@@ -37,10 +40,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        String jwt = authHeader.substring(TOKEN_PREFIX.length());
-        Claims claims = jwtUtils.extractClaims(jwt);
-        String userName = claims.getSubject();
         try {
+            String jwt = authHeader.substring(TOKEN_PREFIX.length());
+            Claims claims = jwtUtils.extractClaims(jwt);
+            String userName = claims.getSubject();
             UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
             if (jwtUtils.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken authenticationToken =
@@ -50,16 +53,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                 userDetails.getAuthorities()
                         );
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                filterChain.doFilter(request, response);
             }
-        } catch (UsernameNotFoundException e) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("UserName Not Found");
-            throw e;
-        } catch (ExpiredJwtException e) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("JWT Expired");
-            throw e;
+            filterChain.doFilter(request, response);
+        } catch (JwtException e) {
+            handlerExceptionResolver.resolveException(request, response, null, e);
         }
     }
 
