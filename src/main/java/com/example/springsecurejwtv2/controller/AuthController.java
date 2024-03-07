@@ -4,7 +4,6 @@ import com.example.springsecurejwtv2.auth.JwtUtils;
 import com.example.springsecurejwtv2.model.AuthRequest;
 import com.example.springsecurejwtv2.model.AuthResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,22 +24,18 @@ public class AuthController {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    public ResponseEntity authenticate(
+    public ResponseEntity<AuthResponse> authenticate(
             @RequestBody AuthRequest authRequest
     ) {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            authRequest.getUserName(),
-                            authRequest.getPassword()
-                    )
-            );
-            UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUserName());
-            String jwt = jwtUtils.createToken(userDetails);
-            return ResponseEntity.ok(new AuthResponse(userDetails.getUsername(), jwt));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-        }
+        UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUserName());
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authRequest.getUserName(),
+                        authRequest.getPassword()
+                )
+        );
+        String jwt = jwtUtils.createToken(userDetails);
+        return ResponseEntity.ok(new AuthResponse(userDetails.getUsername(), jwt));
     }
 
 }
