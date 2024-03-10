@@ -1,5 +1,7 @@
 package com.example.springsecurejwtv2.services;
 
+import com.example.springsecurejwtv2.model.UserEntity;
+import com.example.springsecurejwtv2.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,19 +10,25 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
+    private final UserRepository userRepository;
+
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        // TODO: impl with real db repositories
-        if (!userName.equals("Kelvin")) {
-            throw new UsernameNotFoundException("Can not User with Name: " + userName);
-        }
+        Optional<UserEntity> result = userRepository.findById(userName);
+        UserEntity userEntity = result.orElseThrow(
+                () -> new UsernameNotFoundException("Can not Find User with Name: " + userName)
+        );
         return new User(
-                "Kelvin",
-                "020802",
+                userEntity.getName(),
+                userEntity.getPassword(),
                 Collections.singleton(new SimpleGrantedAuthority("ADMIN"))
         );
     }
