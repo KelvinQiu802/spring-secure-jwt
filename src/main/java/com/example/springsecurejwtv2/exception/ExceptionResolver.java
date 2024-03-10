@@ -25,7 +25,17 @@ public class ExceptionResolver {
                 .path(request.getRequestURI())
                 .status(HttpStatus.UNAUTHORIZED.value())
                 .build();
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED.value()).body(response);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
+
+    @ExceptionHandler(value = {UserNameAlreadyExistsException.class})
+    public ResponseEntity<ExceptionResponse> handleUserNameAlreadyExists(Exception e, HttpServletRequest request) {
+        ExceptionResponse response = ExceptionResponse.builder()
+                .message(e.getMessage())
+                .path(request.getRequestURI())
+                .status(HttpStatus.CONFLICT.value())
+                .build();
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 
 }
