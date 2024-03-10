@@ -10,15 +10,15 @@
 
 <img src="https://imgbed.codingkelvin.fun/uPic/wfwkjefkwjhwkjhdkjqwe.jpg" alt="Srping Security Architecure" style="zoom:40%;" />
 
-# Getting Started
+## Getting Started
 
 ```shell
 $ ./mvnw spring-boot:run
 ```
 
-# API
+## API
 
-## Register
+### Register
 
 ```http
 POST /api/auth/register HTTP/1.1
@@ -32,7 +32,7 @@ Content-Length: 100
 }
 ```
 
-## Login
+### Login
 
 ```http
 POST /api/auth/login HTTP/1.1
@@ -54,12 +54,59 @@ Content-Length: 59
 }
 ```
 
-## Hello World
+### Hello World
 
 ```http
 GET /api/home HTTP/1.1
 Host: localhost:8080
 Authentication: Bearer <token>
+```
+
+## Files Structure
+
+```
+.
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── example
+│   │           └── springsecurejwtv2
+│   │               ├── SpringSecureJwtV2Application.java
+│   │               ├── auth
+│   │               │   ├── JwtAuthFilter.java
+│   │               │   └── JwtUtils.java
+│   │               ├── config
+│   │               │   ├── SecretKeyConfig.java
+│   │               │   └── SecurityConfig.java
+│   │               ├── controller
+│   │               │   ├── AuthController.java
+│   │               │   └── HomeController.java
+│   │               ├── exception
+│   │               │   ├── ExceptionResolver.java
+│   │               │   └── UserNameAlreadyExistsException.java
+│   │               ├── model
+│   │               │   ├── AuthRequest.java
+│   │               │   ├── AuthResponse.java
+│   │               │   ├── ExceptionResponse.java
+│   │               │   ├── RegisterRequest.java
+│   │               │   └── UserEntity.java
+│   │               ├── repository
+│   │               │   └── UserRepository.java
+│   │               └── service
+│   │                   ├── CustomUserDetailsService.java
+│   │                   └── UserService.java
+│   ├── main.iml
+│   └── resources
+│       ├── application.yaml
+│       ├── static
+│       └── templates
+└── test
+    ├── java
+    │   └── com
+    │       └── example
+    │           └── springsecurejwtv2
+    │               └── SpringSecureJwtV2ApplicationTests.java
+    └── test.iml
 ```
 
 ## Resources
