@@ -1,4 +1,4 @@
-package com.example.springsecurejwtv2.services;
+package com.example.springsecurejwtv2.service;
 
 import com.example.springsecurejwtv2.exception.UserNameAlreadyExistsException;
 import com.example.springsecurejwtv2.model.RegisterRequest;

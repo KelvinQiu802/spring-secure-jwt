@@ -1,7 +1,7 @@
 package com.example.springsecurejwtv2.config;
 
 import com.example.springsecurejwtv2.auth.JwtAuthFilter;
-import com.example.springsecurejwtv2.services.CustomUserDetailsService;
+import com.example.springsecurejwtv2.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

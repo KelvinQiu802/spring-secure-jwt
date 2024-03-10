@@ -4,7 +4,7 @@ import com.example.springsecurejwtv2.auth.JwtUtils;
 import com.example.springsecurejwtv2.model.AuthRequest;
 import com.example.springsecurejwtv2.model.AuthResponse;
 import com.example.springsecurejwtv2.model.RegisterRequest;
-import com.example.springsecurejwtv2.services.UserService;
+import com.example.springsecurejwtv2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

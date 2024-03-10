@@ -1,4 +1,4 @@
-package com.example.springsecurejwtv2.services;
+package com.example.springsecurejwtv2.service;
 
 import com.example.springsecurejwtv2.model.UserEntity;
 import com.example.springsecurejwtv2.repository.UserRepository;
