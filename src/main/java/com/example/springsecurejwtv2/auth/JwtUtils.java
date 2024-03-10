@@ -2,6 +2,7 @@ package com.example.springsecurejwtv2.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -11,16 +12,13 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@RequiredArgsConstructor
 public class JwtUtils {
 
     private final SecretKey SECRET_KEY;
 
     @Value("${jwt.expiration.seconds}")
     private int expirationTimeInSeconds;
-
-    public JwtUtils(SecretKey secretKey) {
-        this.SECRET_KEY = secretKey;
-    }
 
     public boolean validateToken(String token, UserDetails user) {
         String userName = user.getUsername();
