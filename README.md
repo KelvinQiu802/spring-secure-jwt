@@ -64,6 +64,6 @@ Authentication: Bearer <token>
 
 ## Resources
 
-- **Docs: **[jwt.io](https://jwt.io/)
+- **Docs: ** [jwt.io](https://jwt.io/)
 
-- **Tutorial: **[medium](https://medium.com/code-with-farhan/spring-security-jwt-authentication-authorization-a2c6860be3cf)
+- **Tutorial: ** [medium](https://medium.com/code-with-farhan/spring-security-jwt-authentication-authorization-a2c6860be3cf)
