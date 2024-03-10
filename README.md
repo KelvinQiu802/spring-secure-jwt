@@ -1,4 +1,4 @@
-# Spring Security with Json Web Token (JWT)
+# Spring Security with JSON Web Token (JWT)
 
 [![JWT SVG](https://jwt.io/img/badge.svg)](https://jwt.io/)
 
