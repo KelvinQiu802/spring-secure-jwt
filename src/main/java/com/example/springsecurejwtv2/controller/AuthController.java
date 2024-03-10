@@ -3,7 +3,10 @@ package com.example.springsecurejwtv2.controller;
 import com.example.springsecurejwtv2.auth.JwtUtils;
 import com.example.springsecurejwtv2.model.AuthRequest;
 import com.example.springsecurejwtv2.model.AuthResponse;
+import com.example.springsecurejwtv2.model.RegisterRequest;
+import com.example.springsecurejwtv2.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +24,7 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
+    private final UserService userService;
     private final JwtUtils jwtUtils;
 
     @PostMapping("/login")
@@ -36,6 +40,14 @@ public class AuthController {
         );
         String jwt = jwtUtils.createToken(userDetails);
         return ResponseEntity.ok(new AuthResponse(userDetails.getUsername(), jwt));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Void> register(
+            @RequestBody RegisterRequest registerRequest
+    ) {
+        userService.createNewUser(registerRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }
