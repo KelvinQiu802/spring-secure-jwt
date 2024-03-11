@@ -62,6 +62,33 @@ Host: localhost:8080
 Authentication: Bearer <token>
 ```
 
+### GET Users
+
+```http
+GET /api/users HTTP/1.1
+Host: localhost:8080
+Authentication: Bearer <token>
+```
+
+***Response:***
+
+```json
+[
+    {
+        "name": "Kelvin",
+        "email": "kelvinqiu802@outlook.com"
+    },
+    {
+        "name": "Jack",
+        "email": "jack@outlook.com"
+    },
+    {
+        "name": "Tony",
+        "email": "tony@outlook.com"
+    }
+]
+```
+
 ## Files Structure
 
 ```
