@@ -24,13 +24,11 @@ public class UserService {
                             String.format("User Name [%s] Already Exists", u.getName())
                     );
                 },
-                () -> {
-                    userRepository.save(UserEntity.builder()
-                            .name(registerRequest.getUserName())
-                            .password(passwordEncoder.encode(registerRequest.getPassword()))
-                            .email(registerRequest.getEmail())
-                            .build());
-                }
+                () -> userRepository.save(UserEntity.builder()
+                        .name(registerRequest.getUserName())
+                        .password(passwordEncoder.encode(registerRequest.getPassword()))
+                        .email(registerRequest.getEmail())
+                        .build())
         );
     }
 
