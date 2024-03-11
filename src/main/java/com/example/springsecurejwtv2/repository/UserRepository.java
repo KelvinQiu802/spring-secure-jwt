@@ -1,7 +1,7 @@
 package com.example.springsecurejwtv2.repository;
 
 import com.example.springsecurejwtv2.model.UserEntity;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
-public interface UserRepository extends CrudRepository<UserEntity, String> {
+public interface UserRepository extends ListCrudRepository<UserEntity, String> {
 }
